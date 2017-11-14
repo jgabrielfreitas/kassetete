@@ -1,5 +1,5 @@
 # Kassetete
-> "DSLing for fun an profit"
+> "DSLing for fun and profit"
 
 ## What
 An experimental Kotlin DSL on top of RxJava2 testing APIs
