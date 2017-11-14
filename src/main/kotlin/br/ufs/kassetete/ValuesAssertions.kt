@@ -7,7 +7,7 @@ class ValuesAssertions<T> internal constructor(private val parent: EvaluationBri
         return parent
     }
 
-    infix fun butNeverReceive(item: T): EvaluationBridge<T> {
+    infix fun butNeverReceives(item: T): EvaluationBridge<T> {
         parent.consumer.assertNever(item)
         return parent
     }

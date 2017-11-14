@@ -45,7 +45,7 @@ class KasseteteTests {
 
     @Test fun `check for never receiving some item`() {
         val target = Flowable.just(1, 2, 3, 4)
-        assert that target receives emissions butNeverReceive 5
+        assert that target receives emissions butNeverReceives 5
     }
 
     @Test fun `check for error with given throwable`() {
@@ -74,7 +74,7 @@ class KasseteteTests {
 
         assert that
                 target receives emissions matchingExactly listOf(1, 2, 3, 4) and
-                destination consumes allItems butNeverReceive 5
+                destination consumes allItems butNeverReceives 5
     }
 
     @Test fun `chain assertions from lifecycle to values using ASWELL`() {

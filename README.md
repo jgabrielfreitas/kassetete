@@ -1,31 +1,32 @@
 # Kassetete
+> "DSLing for fun an profit"
 
 ## What
 An experimental Kotlin DSL on top of RxJava2 testing APIs
 
 ## Why
-Nothing special about : its just an exercise and a work-in-progress
+It is just an exercise and a work-in-progress
 
 ## How
 
-Leveraging Kotlin features we can achieve cleaner verifications statements.
+We just leverage some the awesome Kotlin features !!!
 
 - Plain TestSubscriber / TestObserver way
 
 ```
-    val npe = NullPointerException("Cannot be null")
-    val broken = Flowable.error<Any>(npe)
+val npe = NullPointerException("Cannot be null")
+val broken = Flowable.error<Any>(npe)
     
-    broken.test().assertError(npe)
+broken.test().assertError(npe)
 ```
 
 - Kassetete way
 
 ```
-    val npe = NullPointerException("Cannot be null")
-    val broken = Flowable.error<Any>(npe)
+val npe = NullPointerException("Cannot be null")
+val broken = Flowable.error<Any>(npe)
     
-    assert that broken failsWith exception equalsTo npe
+assert that broken failsWith exception equalsTo npe
 ```
 
 Kassetete provides two DSL entry points : `expect` and `assert`.
@@ -36,83 +37,83 @@ Kassetete provides two DSL entry points : `expect` and `assert`.
 Some examples using `expect`
 
 ```
-   val frozen = Flowable.never<Any>()
-   expect that frozen should receiveNoEvents
+val frozen = Flowable.never<Any>()
+expect that frozen should receiveNoEvents
 ```
 
 ```
-   val empty = Flowable.empty<Any>()
-   expect that empty should terminate
+val empty = Flowable.empty<Any>()
+expect that empty should terminate
 ```
 
 Some examples using `assert`
 
 ```
-   val target = Observable.just("A", "B", "C")
-   assert that target receives allItems matchingExactly listOf("A", "B", "C")
+val target = Observable.just("A", "B", "C")
+assert that target receives allItems matchingExactly listOf("A", "B", "C")
 ```
 
 ```
-   val error = IllegalAccessError("Forbidden")
-   val broken = Flowable.error<Any>(error)
+val error = IllegalAccessError("Forbidden")
+val broken = Flowable.error<Any>(error)
         
-   assert that broken failsWith throwable matching {
-        it.message!!.contentEquals("Forbidden")
-   }
+assert that broken failsWith throwable matching {
+    it.message!!.contentEquals("Forbidden")
+}
 ```
 
 
 Kassetete provides some synonyms in order to let us write the same statements with distinct words
 
 ```
-	val target = Flowable.just(1, 2, 3, 4)
+val target = Flowable.just(1, 2, 3, 4)
 	
-	assert that target receives emissions butNeverReceive 5
-	// or
-	assert that target consumes onNextEvents butNeverReceive 5
+assert that target receives emissions butNeverReceives 5
+// or
+assert that target consumes onNextEvents butNeverReceives 5
 ```
 
 ```
-	val flow = Flowable.error<Any>(IllegalArgumentException("Cannot be zero"))
+val flow = Flowable.error<Any>(IllegalArgumentException("Cannot be zero"))
 	
-	assert that flow breaksWith error ofType IllegalArgumentException::class
-	// or
-	assert that flow failsWith exception ofType IllegalArgumentException::class
+assert that flow breaksWith error ofType IllegalArgumentException::class
+// or
+assert that flow failsWith exception ofType IllegalArgumentException::class
 ```
 
 The values/errors related verifications are chainable using `and`
 
 ```
-	val target = Flowable.just(1, 2, 3, 4)
+val target = Flowable.just(1, 2, 3, 4)
 
-	assert that
-   		target receives emissions matchingExactly listOf(1, 2, 3, 4) and
-   		destination consumes allItems butNeverReceive 5
+assert that
+	target receives emissions matchingExactly listOf(1, 2, 3, 4) and
+	destination consumes allItems butNeverReceives 5
 ```
 
 You can shift from lifecycle DSL to values/errors DSL using `asWell`
 
 ```
-	val target = Observable.just("A", "B", "C")
+val target = Observable.just("A", "B", "C")
 
-	expect that
-		target should complete asWell
-		observer consumes onNextEvents withTotalCount 3
+expect that
+	target should complete asWell
+	observer consumes onNextEvents withTotalCount 3
 ```
 
 ## Does it worth ??
 
-The DSL itself will offer cleaner, idiomatic constructions, but longer verification statements in general. 
+The DSL itself may offer cleaner and idiomatic constructions; but these ar longer verification statements in general. 
 
-It probably worths (by now) if you don`t know so well the RxJava2 testing API semantics.
+It probably worths (by now) if you dont know so well the RxJava2 testing API semantics.
 
 
-## TODO
-- Support for block verifications DSL (both lifecycle and values/errors verifications)
+## Next steps
+- Support for batch verifications with block DSL
 - Cover all TestSubscriber / TestObserver APIs
 - Improve tests and documentation
 
-## Should I use it in production now??
+## Should I use it in production ??
 - Probably no
 
 ## License
