@@ -103,7 +103,7 @@ expect that
 
 ## Does it worth ??
 
-The DSL itself may offer cleaner and idiomatic constructions; but these ar longer verification statements in general. 
+The DSL itself may offer cleaner and idiomatic constructions; but these are longer statements in general. 
 
 It probably worths (by now) if you dont know so well the RxJava2 testing API semantics.
 
